@@ -1,0 +1,18 @@
+﻿{
+  "_id": "_design/car",
+  "views": {
+    "getall": {
+      "map": "function(doc){emit(doc.number,[doc.brand,doc.model,doc.year,doc.price])}"
+    },
+    "groupbybrand": {
+      "map": "function(doc){emit([doc.brand,doc.model],1)}",
+      "reduce": "function(keys,values){return sum(values)}"
+    },
+    "descendingbyprice": {
+      "map": "function(doc){emit(doc.price,[doc.number,doc.brand,doc.model])}"
+    },
+    "descendingbyyear": {
+      "map": "function(doc){emit(doc.year,[doc.number,doc.brand,doc.model])}"
+    }
+  }
+}
